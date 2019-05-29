@@ -2,7 +2,7 @@ version: '3.2'
 services:
 
   nginx:
-    image: akiel/sample-locator-nginx:1
+    image: akiel/sample-locator-nginx:2
     ports:
     - ${PORT_NGINX:-8080}:80
     networks:
