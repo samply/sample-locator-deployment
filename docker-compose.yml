@@ -10,7 +10,7 @@ services:
     restart: always
 
   searchbroker-ui:
-    image: martinbreu/searchbroker-ui:0
+    image: martinbreu/searchbroker-ui:emptyROOT
     environment:
       SEARCHBROKER_URL: ${SEARCHBROKER_UI_SEARCHBROKER_URL:-}
       NEGOTIATOR_URL: ${SEARCHBROKER_UI_NEGOTIATOR_URL:-}
@@ -31,7 +31,7 @@ services:
     restart: always
 
   searchbroker:
-    image: martinbreu/searchbroker:1
+    image: martinbreu/searchbroker:manifest
     environment:
       AUTH_HOST: ${SEARCHBROKER_AUTH_HOST:-}
       AUTH_PUBLIC_KEY: ${SEARCHBROKER_AUTH_PUBLIC_KEY:-}
@@ -62,6 +62,8 @@ services:
       POSTGRES_USER: searchbroker
       POSTGRES_PASSWORD: ${SEARCHBROKER_POSTGRES_PASS:-}
       POSTGRES_DB: searchbroker
+    networks:
+    - searchbroker-db
     ports:
     - ${PORT_SEARCHBROKER_POSTGRES:-}:5432
     volumes:
