@@ -31,7 +31,7 @@ services:
     restart: always
 
   searchbroker:
-    image: martinbreu/searchbroker:manifest
+    image: martinbreu/searchbroker:broker
     environment:
       AUTH_HOST: ${SEARCHBROKER_AUTH_HOST:-}
       AUTH_PUBLIC_KEY: ${SEARCHBROKER_AUTH_PUBLIC_KEY:-}
