@@ -10,7 +10,7 @@ services:
     restart: always
 
   searchbroker-ui:
-    image: martinbreu/searchbroker-ui:emptyROOT
+    image: akiel/searchbroker-ui:2.3.2
     environment:
       SEARCHBROKER_URL: ${SEARCHBROKER_UI_SEARCHBROKER_URL:-}
       NEGOTIATOR_URL: ${SEARCHBROKER_UI_NEGOTIATOR_URL:-}
