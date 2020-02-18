@@ -2,15 +2,15 @@
 
 Docker Compose File for Deployment of the Sample Locator
 
-## Nginx Container
+        docker-compose up -d
 
-### Image
+UI: http://localhost
 
-```
-akiel/sample-locator-nginx
-```
+Backend: http://localhost/broker
 
 ### Environment Variables
 
-* SEARCHBROKER_UI - host and port of the UI
-* SEARCHBROKER - host and port of the backend
+Create file `.env` in this directory with content like:
+
+        AUTH_CLIENT_ID=42o0932jidsjfr
+        AUTH_CLIENT_SECRET=aop21idhioqw32huungsfunzud4321hfewq

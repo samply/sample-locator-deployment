@@ -1,54 +1,52 @@
-version: '3.2'
+version: '3.4'
 services:
 
   nginx:
-    image: akiel/sample-locator-nginx:2
+    build: nginx
     ports:
-    - ${PORT_NGINX:-8080}:80
+    - "80:80"
     networks:
     - gba
     restart: always
 
   searchbroker-ui:
-    image: akiel/searchbroker-ui:2.3.3
+    image: martinbreu/searchbroker-ui:4.0.0
     environment:
-      SEARCHBROKER_URL: ${SEARCHBROKER_UI_SEARCHBROKER_URL:-}
-      NEGOTIATOR_URL: ${SEARCHBROKER_UI_NEGOTIATOR_URL:-}
-      AUTH_CLIENT_SECRET: ${SEARCHBROKER_UI_AUTH_CLIENT_SECRET:-}
-      AUTH_HOST: ${SEARCHBROKER_UI_AUTH_HOST:-}
-      AUTH_PUBLIC_KEY: ${SEARCHBROKER_UI_AUTH_PUBLIC_KEY:-}
-      AUTH_CLIENT_ID: ${SEARCHBROKER_UI_AUTH_CLIENT_ID:-}
-      PROXY_HOST: ${SEARCHBROKER_UI_PROXY_HOST:-}
-      PROXY_PORT: ${SEARCHBROKER_UI_PROXY_PORT:-}
-      MDR_API_URL: ${SEARCHBROKER_UI_MDR_API_URL:-https://mdr.germanbiobanknode.de/v3/api/mdr}
-      MDR_NAMESPACE: ${SEARCHBROKER_UI_MDR_NAMESPACE:-mdr16}
-      MDR_LANGUAGE: ${SEARCHBROKER_UI_MDR_LANGUAGE:-en}
-      MDR_MAPPING: ${SEARCHBROKER_UI_MDR_MAPPING:-<dataElementGroup nameOfEnum='DONOR'>urn:mdr16:dataelementgroup:5:1</dataElementGroup><dataElementGroup nameOfEnum='SAMPLE_CONTEXT'>urn:mdr16:dataelementgroup:4:1</dataElementGroup><dataElementGroup nameOfEnum='SAMPLE'>urn:mdr16:dataelementgroup:3:1</dataElementGroup><dataElementGroup nameOfEnum='EVENT'>urn:mdr16:dataelementgroup:6:1</dataElementGroup>}
-      MDR_HIDDEN: ${SEARCHBROKER_UI_MDR_HIDDEN:-<hiddenDataElement>urn:mdr16:dataelement:1:1</hiddenDataElement><hiddenDataElement>urn:mdr16:dataelement:25:1</hiddenDataElement><hiddenDataElement>urn:mdr16:dataelement:34:1</hiddenDataElement><hiddenDataElement>urn:mdr16:dataelement:18:1</hiddenDataElement><hiddenDataElement>urn:mdr16:dataelement:11:1</hiddenDataElement><hiddenDataElement>urn:mdr16:dataelement:19:1</hiddenDataElement><hiddenDataElement>urn:mdr16:dataelement:20:1</hiddenDataElement><hiddenDataElement>urn:mdr16:dataelement:4:1</hiddenDataElement><hiddenDataElement>urn:mdr16:dataelement:21:1</hiddenDataElement><hiddenDataElement>urn:mdr16:dataelement:22:1</hiddenDataElement><hiddenDataElement>urn:mdr16:dataelement:24:1</hiddenDataElement><hiddenDataElement>urn:mdr16:dataelement:13:1</hiddenDataElement>}
-      CATALINA_OPTS: ${SEARCHBROKER_UI_CATALINA_OPTS:--Xmx1g}
+      SEARCHBROKER_URL:     "http://searchbroker:8080/broker"
+      SAMPLELOCATOR_URL:    "https://samplelocator.bbmri.de"
+      NEGOTIATOR_URL:       "https://negotiator.bbmri-eric.eu"
+      AUTH_CLIENT_ID:       ${AUTH_CLIENT_ID:-DUMMY}
+      AUTH_CLIENT_SECRET:   ${AUTH_CLIENT_SECRET:-DUMMY}
+      AUTH_HOST:            "https://login.bbmri-eric.eu"
+      AUTH_PUBLIC_KEY:      "MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAjKvsfThd4XO/J5PDlgnmCZ3vGB8MRwcK4rJ42xO/xVmtwkxV8ZW4LIbRE+uQn4EsyTY8ke9do2sSUHGSIHh6T0OR1nm9eljOEXwO6/kYPJbVvEYRIQaZ5kvuCZEP9dcyHwgaN9thHpo2n71GpVo+kZ/KhUY8XHU7PIUokCPIQrF20CvANa2h8htJMp3mIIBJ2j1sf7qfLo2QAJO5p92zASwPpZSebOFhqU5005Qp7uNB+Rv+1rwL2mclEcXRjmNQmStThOetZLgReoszE3obHyW65UprY269ulKAyqPVm653jtp5aYAt/sP1twgW9UY2+lkOMMpLYwZkTcg3eAW0vQIDAQAB"
+      MDR_API_URL:          "https://mdr.test.bbmri.de/v3/api/mdr"
+      MDR_NAMESPACE:        "mdr16"
+      MDR_LANGUAGE:         "en"
+      MDR_MAPPING:          '<dataElementGroup nameOfEnum="DONOR">urn:mdr16:dataelementgroup:5:1</dataElementGroup><dataElementGroup nameOfEnum="SAMPLE">urn:mdr16:dataelementgroup:3:1</dataElementGroup><dataElementGroup nameOfEnum="EVENT">urn:mdr16:dataelementgroup:6:1</dataElementGroup>'
+      MDR_FIELD_PROPERTIES: '<dataElement><urn>urn:mdr16:dataelement:29:1</urn><placeHolder></placeHolder><unit>kg</unit></dataElement><dataElement><urn>urn:mdr16:dataelement:30:1</urn><placeHolder></placeHolder><unit>cm</unit></dataElement><dataElement><urn>urn:mdr16:dataelement:28:1</urn><placeHolder></placeHolder><unit>years</unit></dataElement><dataElement><urn>urn:mdr16:dataelement:14:1</urn><placeHolder></placeHolder><unit>years</unit></dataElement><dataElement><urn>urn:mdr16:dataelement:27:1</urn><placeHolder>e.g. C25.1</placeHolder><unit></unit></dataElement>'
+      MDR_HIDDEN:           '<hiddenDataElement>urn:mdr16:dataelement:1:1</hiddenDataElement><hiddenDataElement>urn:mdr16:dataelement:25:1</hiddenDataElement><hiddenDataElement>urn:mdr16:dataelement:34:1</hiddenDataElement><hiddenDataElement>urn:mdr16:dataelement:18:1</hiddenDataElement><hiddenDataElement>urn:mdr16:dataelement:11:1</hiddenDataElement><hiddenDataElement>urn:mdr16:dataelement:19:1</hiddenDataElement><hiddenDataElement>urn:mdr16:dataelement:20:1</hiddenDataElement><hiddenDataElement>urn:mdr16:dataelement:4:1</hiddenDataElement><hiddenDataElement>urn:mdr16:dataelement:21:1</hiddenDataElement><hiddenDataElement>urn:mdr16:dataelement:22:1</hiddenDataElement><hiddenDataElement>urn:mdr16:dataelement:24:1</hiddenDataElement><hiddenDataElement>urn:mdr16:dataelement:13:1</hiddenDataElement>'
+      MOLGENIS_USERNAME:    "DUMMY"
+      MOLGENIS_PASSWORD:    "DUMMY"
+      CATALINA_OPTS:        '"-Xmx1g"'
     networks:
     - gba
     restart: always
 
   searchbroker:
-    image: dreg.life.uni-leipzig.local/searchbroker:8
+    image: martinbreu/searchbroker:4.1.0-SNAPSHOT
     environment:
-      AUTH_HOST: ${SEARCHBROKER_AUTH_HOST:-}
-      AUTH_PUBLIC_KEY: ${SEARCHBROKER_AUTH_PUBLIC_KEY:-}
-      AUTH_CLIENT_ID: ${SEARCHBROKER_AUTH_CLIENT_ID:-}
-      MAIL_HOST: ${SEARCHBROKER_MAIL_HOST:-}
-      MAIL_PORT: ${SEARCHBROKER_MAIL_PORT:-}
-      MAIL_PROTOCOL: ${SEARCHBROKER_MAIL_PROTOCOL:-}
-      MAIL_FROM_ADDRESS: ${SEARCHBROKER_MAIL_FROM_ADDRESS:-}
-      MAIL_FROM_NAME: ${SEARCHBROKER_MAIL_FROM_NAME:-}
-      POSTGRES_HOST: searchbroker-db
-      POSTGRES_PORT: 5432
-      POSTGRES_DB: searchbroker
-      POSTGRES_USER: searchbroker
-      POSTGRES_PASS: ${SEARCHBROKER_POSTGRES_PASS:-}
-      PROXY_HOST: ${SEARCHBROKER_PROXY_HOST:-}
-      PROXY_PORT: ${SEARCHBROKER_PROXY_PORT:-}
-      CATALINA_OPTS: ${SEARCHBROKER_CATALINA_OPTS:-}
+      POSTGRES_HOST:      "searchbroker-db"
+      POSTGRES_DB:        "searchbroker"
+      POSTGRES_PORT:      "5432"
+      POSTGRES_USER:      "searchbroker"
+      POSTGRES_PASS:      "searchbroker"
+      MAIL_HOST:          "DUMMY"
+      MAIL_FROM_ADDRESS:  "DUMMY"
+      MAIL_FROM_NAME:     "DUMMY"
+      AUTH_HOST:          "https://login.bbmri-eric.eu"
+      AUTH_PUBLIC_KEY:    "MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAjKvsfThd4XO/J5PDlgnmCZ3vGB8MRwcK4rJ42xO/xVmtwkxV8ZW4LIbRE+uQn4EsyTY8ke9do2sSUHGSIHh6T0OR1nm9eljOEXwO6/kYPJbVvEYRIQaZ5kvuCZEP9dcyHwgaN9thHpo2n71GpVo+kZ/KhUY8XHU7PIUokCPIQrF20CvANa2h8htJMp3mIIBJ2j1sf7qfLo2QAJO5p92zASwPpZSebOFhqU5005Qp7uNB+Rv+1rwL2mclEcXRjmNQmStThOetZLgReoszE3obHyW65UprY269ulKAyqPVm653jtp5aYAt/sP1twgW9UY2+lkOMMpLYwZkTcg3eAW0vQIDAQAB"
+      AUTH_CLIENT_ID:     ${AUTH_CLIENT_ID:-DUMMY}
+      CATALINA_OPTS:      '"-Xmx1g"'
     networks:
     - gba
     - searchbroker-db
@@ -59,17 +57,15 @@ services:
   searchbroker-db:
     image: postgres:9.6
     environment:
-      POSTGRES_USER: searchbroker
-      POSTGRES_PASSWORD: ${SEARCHBROKER_POSTGRES_PASS:-}
-      POSTGRES_DB: searchbroker
+      POSTGRES_USER:      "searchbroker"
+      POSTGRES_PASSWORD:  "searchbroker"
+      POSTGRES_DB:        "searchbroker"
     networks:
     - searchbroker-db
-    ports:
-    - ${PORT_SEARCHBROKER_POSTGRES:-}:5432
+    expose:
+    - 5432
     volumes:
-    - type: volume
-      source: searchbroker-db-data
-      target: /var/lib/postgresql/data
+    - searchbroker-db-data:/var/lib/postgresql/data
     restart: always
 
 networks:
