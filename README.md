@@ -7,7 +7,7 @@ Docker Compose File for Deployment of the Sample Locator
 
 * JSF UI: http://localhost
 
-* New Angular UI: http://localhost/search
+* New Angular UI: http://localhost:8085
 
 * Backend: http://localhost/broker
 
@@ -17,4 +17,4 @@ Create file `.env` in this directory with content like:
 
         AUTH_CLIENT_ID=42o0932jidsjfr
         AUTH_CLIENT_SECRET=aop21idhioqw32huungsfunzud4321hfewq
-        STATISTICS_MAILS=test@test.de/ntest2@est.de
+        STATISTICS_MAILS=test@test.de\ntest2@test2.de
